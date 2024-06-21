@@ -1,6 +1,10 @@
 MODDIR=${0%/*}
 ROOTFS=$MODDIR/rootfs
 
+while ! (mount | grep '/storage/emulated' >/dev/null); do
+    sleep 5
+done
+
 mount -o remount,suid /data
 mount --bind /dev $ROOTFS/dev
 mount -t proc proc $ROOTFS/proc

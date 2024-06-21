@@ -1,3 +1,6 @@
+MODDIR=${0%/*}
+ROOTFS=$MODDIR/rootfs
+
 umount_root() {
     umount -l $ROOTFS/dev/pts
     umount -l $ROOTFS/dev/shm
