@@ -1,17 +1,12 @@
-# Don't modify anything after this
-if [ -f $INFO ]; then
-  while read LINE; do
-    if [ "$(echo -n $LINE | tail -c 1)" == "~" ]; then
-      continue
-    elif [ -f "$LINE~" ]; then
-      mv -f $LINE~ $LINE
-    else
-      rm -f $LINE
-      while true; do
-        LINE=$(dirname $LINE)
-        [ "$(ls -A $LINE 2>/dev/null)" ] && break 1 || rm -rf $LINE
-      done
-    fi
-  done < $INFO
-  rm -f $INFO
-fi
+umount_root() {
+    umount -l $ROOTFS/dev/pts
+    umount -l $ROOTFS/dev/shm
+    umount -l $ROOTFS/tmp
+    umount -l $ROOTFS/sys
+    umount -l $ROOTFS/proc
+    umount -l $ROOTFS/dev
+    umount -l $ROOTFS/sdcard
+    umount -l $ROOTFS
+}
+
+umount_root
